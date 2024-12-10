@@ -1,0 +1,97 @@
+[gd_scene load_steps=5 format=3 uid="uid://dtwjsbb8njv1s"]
+
+[ext_resource type="Script" path="res://top-down-shooter-core/gui/game_over_ui/game_win_ui.gd" id="1_14scx"]
+[ext_resource type="FontFile" uid="uid://rondb855xiae" path="res://fonts/Mulish-Regular.ttf" id="2_p23rj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i03xi"]
+bg_color = Color(0.854338, 0.621946, 0.722883, 0.529412)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sp0mg"]
+bg_color = Color(0.819608, 0.321569, 0.270588, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[node name="GameWinUI" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_14scx")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="CenterContainer"]
+custom_minimum_size = Vector2(500, 400)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_i03xi")
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 35
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 35
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_p23rj")
+theme_override_font_sizes/font_size = 32
+text = "ВЫ ВЫИГРАЛи"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="menu" type="Button" parent="CenterContainer/Panel/MarginContainer/VBoxContainer"]
+process_mode = 3
+custom_minimum_size = Vector2(320, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_override_fonts/font = ExtResource("2_p23rj")
+theme_override_font_sizes/font_size = 28
+theme_override_styles/focus = SubResource("StyleBoxFlat_sp0mg")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxFlat_sp0mg")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_sp0mg")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_sp0mg")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_sp0mg")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxFlat_sp0mg")
+theme_override_styles/hover = SubResource("StyleBoxFlat_sp0mg")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_sp0mg")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_sp0mg")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_sp0mg")
+theme_override_styles/normal = SubResource("StyleBoxFlat_sp0mg")
+text = "Выйты в главное меню"
+
+[connection signal="pressed" from="CenterContainer/Panel/MarginContainer/VBoxContainer/menu" to="." method="_on_menu_pressed"]

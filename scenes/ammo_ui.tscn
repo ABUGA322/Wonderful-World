@@ -1,0 +1,62 @@
+[gd_scene load_steps=5 format=3 uid="uid://dcv0xb5qhddxk"]
+
+[ext_resource type="Script" path="res://scenes/ammo_ui.gd" id="1_7dso2"]
+[ext_resource type="FontFile" uid="uid://rondb855xiae" path="res://fonts/Mulish-Regular.ttf" id="2_4dwf7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_00vcg"]
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mdpy3"]
+bg_color = Color(0.898039, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="AmmoUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7dso2")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 35
+theme_override_constants/margin_top = 35
+theme_override_constants/margin_right = 35
+theme_override_constants/margin_bottom = 35
+
+[node name="Label" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_4dwf7")
+theme_override_font_sizes/font_size = 32
+text = "20"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="ProgressBar" type="ProgressBar" parent="MarginContainer"]
+custom_minimum_size = Vector2(200, 25)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_styles/background = SubResource("StyleBoxFlat_00vcg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_mdpy3")
+max_value = 10.0
+step = 1.0
+value = 10.0
+show_percentage = false

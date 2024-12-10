@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://ckan5lwiqvq2a"]
+
+[ext_resource type="Script" path="res://top-down-shooter-core/character/character.gd" id="1_ygcq1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nxnue"]
+radius = 24.1868
+
+[node name="Character" type="CharacterBody2D"]
+editor_description = "This is a Default Character.
+It can be your player character/an enemy/ a friendly NPC..."
+motion_mode = 1
+script = ExtResource("1_ygcq1")
+rotate_body_towards = null
+can_grab_items = null
+
+[node name="Visual" type="Node2D" parent="."]
+
+[node name="Behavior" type="Node2D" parent="."]
+
+[node name="WeaponDetection" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WeaponDetection"]
+shape = SubResource("CircleShape2D_nxnue")

@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://c5vnsrtrpn341"]
+
+[ext_resource type="PackedScene" uid="uid://4sxlkc2jalvo" path="res://game/enemy/enemy1.tscn" id="1_f4ewh"]
+[ext_resource type="PackedScene" uid="uid://bhhnrvhsck001" path="res://game/enemy/enemy2.tscn" id="2_amkhj"]
+[ext_resource type="PackedScene" uid="uid://blqc7lu1fqqv" path="res://game/enemy/enemy3.tscn" id="3_dilr2"]
+[ext_resource type="PackedScene" uid="uid://llwdm15gio3t" path="res://game/enemy/enemy.tscn" id="4_vc43f"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Character2" parent="." instance=ExtResource("1_f4ewh")]
+position = Vector2(467, -263)
+
+[node name="Character3" parent="." instance=ExtResource("2_amkhj")]
+visible = false
+position = Vector2(1029, -224)
+
+[node name="Character4" parent="." instance=ExtResource("3_dilr2")]
+visible = false
+position = Vector2(385, 202)
+
+[node name="Character5" parent="." instance=ExtResource("1_f4ewh")]
+visible = false
+position = Vector2(802, 105)
+
+[node name="Character6" parent="." instance=ExtResource("2_amkhj")]
+visible = false
+position = Vector2(306, -59)
+
+[node name="Character7" parent="." instance=ExtResource("4_vc43f")]
+visible = false
+position = Vector2(1144, 99)

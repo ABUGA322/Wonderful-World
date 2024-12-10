@@ -1,0 +1,94 @@
+[gd_scene load_steps=8 format=3 uid="uid://tlxsoecu6t6i"]
+
+[ext_resource type="Shader" path="res://scenes/Main.gdshader" id="1_3erx6"]
+[ext_resource type="Script" path="res://scenes/menu.gd" id="1_ov20l"]
+[ext_resource type="Texture2D" uid="uid://dve60yitrq5hy" path="res://scenes/Grid.png" id="2_7kijl"]
+[ext_resource type="FontFile" uid="uid://rondb855xiae" path="res://fonts/Mulish-Regular.ttf" id="3_4q0af"]
+[ext_resource type="Texture2D" uid="uid://b4oi4n8xxi2eh" path="res://scenes/play-button.png" id="4_34uew"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wchps"]
+shader = ExtResource("1_3erx6")
+shader_parameter/speed = Vector2(-0.02, -0.02)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h6mlv"]
+bg_color = Color(0.686275, 0.568627, 0.54902, 0.364706)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ov20l")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+color = Color(0.161924, 0.235211, 0.272612, 1)
+
+[node name="TextureRect" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_wchps")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -428.0
+offset_bottom = -239.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_7kijl")
+stretch_mode = 1
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0359375
+anchor_top = 0.0597222
+anchor_right = 0.416406
+anchor_bottom = 0.883333
+theme_override_styles/panel = SubResource("StyleBoxFlat_h6mlv")
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_4q0af")
+theme_override_font_sizes/font_size = 32
+text = "..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Start" type="TextureButton" parent="Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+texture_normal = ExtResource("4_34uew")
+texture_pressed = ExtResource("4_34uew")
+texture_hover = ExtResource("4_34uew")
+texture_disabled = ExtResource("4_34uew")
+texture_focused = ExtResource("4_34uew")
+stretch_mode = 0
+
+[connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/Start" to="." method="_on_start_pressed"]

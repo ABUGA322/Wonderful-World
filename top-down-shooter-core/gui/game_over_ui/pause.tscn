@@ -1,0 +1,129 @@
+[gd_scene load_steps=6 format=3 uid="uid://dn2vp46bq6tr3"]
+
+[ext_resource type="Script" path="res://top-down-shooter-core/gui/game_over_ui/pause.gd" id="1_ot1n3"]
+[ext_resource type="FontFile" uid="uid://rondb855xiae" path="res://fonts/Mulish-Regular.ttf" id="2_hq3hn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rnsna"]
+bg_color = Color(0.598722, 0.697294, 0.920071, 0.529412)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bw4x0"]
+bg_color = Color(0.0745098, 0.478431, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0xajx"]
+bg_color = Color(0.0727677, 0.477653, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[node name="Pause" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ot1n3")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="CenterContainer"]
+custom_minimum_size = Vector2(500, 400)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_rnsna")
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 35
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 35
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_hq3hn")
+theme_override_font_sizes/font_size = 32
+text = "ПАУЗА"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="Continue" type="Button" parent="CenterContainer/Panel/MarginContainer/VBoxContainer"]
+process_mode = 3
+custom_minimum_size = Vector2(320, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_override_fonts/font = ExtResource("2_hq3hn")
+theme_override_font_sizes/font_size = 28
+theme_override_styles/focus = SubResource("StyleBoxFlat_bw4x0")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxFlat_bw4x0")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_bw4x0")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_bw4x0")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_bw4x0")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxFlat_bw4x0")
+theme_override_styles/hover = SubResource("StyleBoxFlat_bw4x0")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_bw4x0")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_bw4x0")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_bw4x0")
+theme_override_styles/normal = SubResource("StyleBoxFlat_bw4x0")
+text = "Продолжить игру"
+
+[node name="menu" type="Button" parent="CenterContainer/Panel/MarginContainer/VBoxContainer"]
+process_mode = 3
+custom_minimum_size = Vector2(320, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+theme_override_fonts/font = ExtResource("2_hq3hn")
+theme_override_font_sizes/font_size = 28
+theme_override_styles/focus = SubResource("StyleBoxFlat_0xajx")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxFlat_0xajx")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_0xajx")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_0xajx")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_0xajx")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxFlat_0xajx")
+theme_override_styles/hover = SubResource("StyleBoxFlat_0xajx")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_0xajx")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_0xajx")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_0xajx")
+theme_override_styles/normal = SubResource("StyleBoxFlat_0xajx")
+text = "Выйты в главное меню"
+
+[connection signal="pressed" from="CenterContainer/Panel/MarginContainer/VBoxContainer/Continue" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="CenterContainer/Panel/MarginContainer/VBoxContainer/menu" to="." method="_on_menu_pressed"]
