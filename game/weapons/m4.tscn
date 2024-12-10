@@ -1,0 +1,53 @@
+[gd_scene load_steps=10 format=3 uid="uid://culgtqg2beeun"]
+
+[ext_resource type="PackedScene" uid="uid://cop8ouksmiyov" path="res://top-down-shooter-core/weapons/distance_weapon.tscn" id="1_ieinl"]
+[ext_resource type="PackedScene" uid="uid://dpwp4oe1a6tvv" path="res://game/weapons/bullet.tscn" id="2_tbqqm"]
+[ext_resource type="Script" path="res://top-down-shooter-core/weapons/magazine.gd" id="3_5lt2o"]
+[ext_resource type="Texture2D" uid="uid://c07egyan0lsmc" path="res://game/assets/weapons_new/m4a1.png" id="3_6gr5k"]
+[ext_resource type="Texture2D" uid="uid://dqid6x3e1dsjt" path="res://game/assets/weapons_new/m4a1_m.png" id="4_gn58t"]
+
+[sub_resource type="Resource" id="Resource_24i65"]
+script = ExtResource("3_5lt2o")
+capacity = 25
+reload_time = 0.0
+auto_refill = false
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d70lr"]
+atlas = ExtResource("3_6gr5k")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8n00u"]
+atlas = ExtResource("4_gn58t")
+region = Rect2(0, 0, 67, 20)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e06v8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d70lr")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8n00u")
+}],
+"loop": true,
+"name": &"ground",
+"speed": 5.0
+}]
+
+[node name="M4" instance=ExtResource("1_ieinl")]
+shoot_delay = 0.08
+bullet_scene = ExtResource("2_tbqqm")
+magazine = SubResource("Resource_24i65")
+
+[node name="BulletSpawnPoint" parent="." index="0"]
+position = Vector2(-1, -11)
+rotation = -1.5708
+
+[node name="AnimatedSprite2D" parent="." index="1"]
+sprite_frames = SubResource("SpriteFrames_e06v8")
+animation = &"ground"

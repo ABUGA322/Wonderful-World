@@ -1,0 +1,192 @@
+[gd_scene load_steps=29 format=3 uid="uid://llwdm15gio3t"]
+
+[ext_resource type="PackedScene" uid="uid://ckan5lwiqvq2a" path="res://top-down-shooter-core/character/character.tscn" id="1_qiwkt"]
+[ext_resource type="Script" path="res://game/enemy/enemy.gd" id="2_mw5qq"]
+[ext_resource type="Script" path="res://top-down-shooter-core/character/character_stats/character_stats.gd" id="3_ujdtm"]
+[ext_resource type="Script" path="res://top-down-shooter-core/inventory/inventory_.gd" id="4_41fs3"]
+[ext_resource type="Script" path="res://top-down-shooter-core/character/character_stats/physics_stats.gd" id="5_gau64"]
+[ext_resource type="Script" path="res://game/player/visual.gd" id="6_7k8nj"]
+[ext_resource type="Texture2D" uid="uid://bmrlfuomhhqyp" path="res://game/assets/characters/legs.png" id="7_tfn81"]
+[ext_resource type="Texture2D" uid="uid://cvwm7cd67vyad" path="res://game/assets/characters/t2.png" id="8_lxx0b"]
+[ext_resource type="Script" path="res://game/enemy/behavior.gd" id="9_nn0uq"]
+[ext_resource type="Script" path="res://game/enemy/weapon_holder.gd" id="10_8v1o6"]
+[ext_resource type="PackedScene" uid="uid://dvlhxpduqbali" path="res://game/weapons/ak.tscn" id="11_644iu"]
+[ext_resource type="PackedScene" uid="uid://cbx5e1m0wvfyn" path="res://top-down-shooter-core/character/behavior/behavior_modules/player_detector.tscn" id="12_wnbke"]
+[ext_resource type="Script" path="res://top-down-shooter-core/weapons/magazine.gd" id="13_o8aex"]
+
+[sub_resource type="Resource" id="Resource_gl1ld"]
+script = ExtResource("3_ujdtm")
+max_life = 5
+
+[sub_resource type="Resource" id="Resource_aqcgn"]
+script = ExtResource("4_41fs3")
+max_size = 10
+
+[sub_resource type="Resource" id="Resource_gfjvd"]
+script = ExtResource("5_gau64")
+max_speed = 200.0
+acceleration = 0.4
+friction = 0.19
+impulse_force = 0.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5hv5d"]
+atlas = ExtResource("7_tfn81")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gvmj2"]
+atlas = ExtResource("7_tfn81")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ahwk0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5hv5d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gvmj2")
+}],
+"loop": true,
+"name": &"default",
+"speed": 4.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"stop",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1wv58"]
+atlas = ExtResource("8_lxx0b")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g2337"]
+atlas = ExtResource("8_lxx0b")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2hidb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1wv58")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g2337")
+}],
+"loop": false,
+"name": &"default",
+"speed": 0.0
+}]
+
+[sub_resource type="Animation" id="Animation_8vu3a"]
+resource_name = "Blink"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.520833, 0.172007, 0.151272, 1), Color(1, 1, 1, 1), Color(0.520833, 0.172007, 0.151272, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_sh1cv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_70246"]
+_data = {
+"Blink": SubResource("Animation_8vu3a"),
+"RESET": SubResource("Animation_sh1cv")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ix3e8"]
+radius = 256.002
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j4qsj"]
+radius = 14.0
+
+[sub_resource type="Resource" id="Resource_oeaqv"]
+script = ExtResource("13_o8aex")
+capacity = 30
+reload_time = 0.0
+auto_refill = false
+
+[node name="Character" instance=ExtResource("1_qiwkt")]
+collision_layer = 8
+collision_mask = 3
+script = ExtResource("2_mw5qq")
+character_stats = SubResource("Resource_gl1ld")
+inventory = SubResource("Resource_aqcgn")
+physics_stats = SubResource("Resource_gfjvd")
+rotate_body_towards = 1
+can_grab_items = false
+
+[node name="Visual" parent="." index="0"]
+script = ExtResource("6_7k8nj")
+
+[node name="Legs" type="AnimatedSprite2D" parent="Visual" index="0"]
+z_index = 1
+texture_filter = 1
+rotation = 1.5708
+sprite_frames = SubResource("SpriteFrames_ahwk0")
+
+[node name="Body" type="AnimatedSprite2D" parent="Visual" index="1"]
+z_index = 3
+texture_filter = 1
+rotation = 1.5708
+sprite_frames = SubResource("SpriteFrames_2hidb")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Visual" index="2"]
+libraries = {
+"": SubResource("AnimationLibrary_70246")
+}
+
+[node name="Behavior" parent="." index="1"]
+script = ExtResource("9_nn0uq")
+
+[node name="PlayerDetector" parent="Behavior" index="0" instance=ExtResource("12_wnbke")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Behavior/PlayerDetector" index="0"]
+shape = SubResource("CircleShape2D_ix3e8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="2"]
+position = Vector2(-1, 1)
+shape = SubResource("CircleShape2D_j4qsj")
+
+[node name="WeaponHolder" type="Node2D" parent="." index="3"]
+position = Vector2(12, 0)
+rotation = 1.5708
+script = ExtResource("10_8v1o6")
+
+[node name="DistanceWeapon" parent="WeaponHolder" index="0" instance=ExtResource("11_644iu")]
+z_index = 2
+collision_layer = 0
+collision_mask = 16
+magazine = SubResource("Resource_oeaqv")
+holder_character = NodePath("../..")
+state_used = true
+
+[node name="WeaponDetection" parent="." index="4"]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" parent="WeaponDetection" index="0"]
+shape = null
+
+[connection signal="shoot" from="." to="WeaponHolder" method="_on_character_shoot"]

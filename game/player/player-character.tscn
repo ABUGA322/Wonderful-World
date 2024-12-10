@@ -1,0 +1,185 @@
+[gd_scene load_steps=26 format=3 uid="uid://b4ktr7cd4veme"]
+
+[ext_resource type="PackedScene" uid="uid://ckan5lwiqvq2a" path="res://top-down-shooter-core/character/character.tscn" id="1_4krb8"]
+[ext_resource type="Script" path="res://top-down-shooter-core/character/character_stats/character_stats.gd" id="2_2ncpa"]
+[ext_resource type="Script" path="res://game/player/player_character.gd" id="2_qyy34"]
+[ext_resource type="Script" path="res://top-down-shooter-core/inventory/inventory_.gd" id="3_v8vat"]
+[ext_resource type="Script" path="res://top-down-shooter-core/character/character_stats/physics_stats.gd" id="4_3fe1f"]
+[ext_resource type="Script" path="res://game/player/visual.gd" id="5_747cy"]
+[ext_resource type="Texture2D" uid="uid://wqfksv3gpgef" path="res://game/assets/characters/t1.png" id="6_m7yci"]
+[ext_resource type="Texture2D" uid="uid://bmrlfuomhhqyp" path="res://game/assets/characters/legs.png" id="6_tk1tp"]
+[ext_resource type="Script" path="res://game/player/behavior.gd" id="8_bm17t"]
+[ext_resource type="PackedScene" uid="uid://dvlhxpduqbali" path="res://game/weapons/ak.tscn" id="9_rs1jy"]
+[ext_resource type="Script" path="res://game/player/weapon_holder.gd" id="10_bumgl"]
+
+[sub_resource type="Resource" id="Resource_ibqsq"]
+script = ExtResource("2_2ncpa")
+max_life = 10
+
+[sub_resource type="Resource" id="Resource_tfeov"]
+script = ExtResource("3_v8vat")
+max_size = 3
+
+[sub_resource type="Resource" id="Resource_kkr7t"]
+script = ExtResource("4_3fe1f")
+max_speed = 200.0
+acceleration = 0.4
+friction = 0.19
+impulse_force = 0.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uunck"]
+atlas = ExtResource("6_tk1tp")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_43mex"]
+atlas = ExtResource("6_tk1tp")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ahwk0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uunck")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_43mex")
+}],
+"loop": true,
+"name": &"default",
+"speed": 4.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"stop",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lubup"]
+atlas = ExtResource("6_m7yci")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g63af"]
+atlas = ExtResource("6_m7yci")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e4w0h"]
+atlas = ExtResource("6_m7yci")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2hidb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lubup")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g63af")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e4w0h")
+}],
+"loop": false,
+"name": &"default",
+"speed": 0.0
+}]
+
+[sub_resource type="Animation" id="Animation_8vu3a"]
+resource_name = "Blink"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.520833, 0.172007, 0.151272, 1), Color(1, 1, 1, 1), Color(0.520833, 0.172007, 0.151272, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_sh1cv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_70246"]
+_data = {
+"Blink": SubResource("Animation_8vu3a"),
+"RESET": SubResource("Animation_sh1cv")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j4qsj"]
+radius = 14.0
+
+[node name="Player" instance=ExtResource("1_4krb8")]
+collision_layer = 2
+collision_mask = 17
+script = ExtResource("2_qyy34")
+gui_path = NodePath("")
+character_stats = SubResource("Resource_ibqsq")
+inventory = SubResource("Resource_tfeov")
+physics_stats = SubResource("Resource_kkr7t")
+rotate_body_towards = 1
+can_grab_items = true
+
+[node name="Visual" parent="." index="0"]
+script = ExtResource("5_747cy")
+
+[node name="Legs" type="AnimatedSprite2D" parent="Visual" index="0"]
+z_index = 1
+texture_filter = 1
+rotation = 1.5708
+sprite_frames = SubResource("SpriteFrames_ahwk0")
+
+[node name="Body" type="AnimatedSprite2D" parent="Visual" index="1"]
+z_index = 3
+texture_filter = 1
+rotation = 1.5708
+sprite_frames = SubResource("SpriteFrames_2hidb")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Visual" index="2"]
+libraries = {
+"": SubResource("AnimationLibrary_70246")
+}
+
+[node name="Behavior" parent="." index="1"]
+script = ExtResource("8_bm17t")
+
+[node name="Camera2D" type="Camera2D" parent="." index="2"]
+zoom = Vector2(1.5, 1.5)
+position_smoothing_speed = 2.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="3"]
+position = Vector2(-1, 1)
+shape = SubResource("CircleShape2D_j4qsj")
+
+[node name="WeaponHolder" type="Node2D" parent="." index="4"]
+position = Vector2(12, 0)
+rotation = 1.5708
+script = ExtResource("10_bumgl")
+
+[node name="DistanceWeapon" parent="WeaponHolder" index="0" instance=ExtResource("9_rs1jy")]
+z_index = 2
+collision_mask = 16
+holder_character = NodePath("../..")
+state_used = true
+
+[node name="WeaponDetection" parent="." index="5"]
+collision_layer = 0
+collision_mask = 16
+
+[connection signal="shoot" from="." to="WeaponHolder" method="_on_character_shoot"]
+[connection signal="area_entered" from="WeaponDetection" to="." method="_on_weapon_detection_area_entered"]
+[connection signal="area_exited" from="WeaponDetection" to="." method="_on_weapon_detection_area_exited"]

@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://dpwp4oe1a6tvv"]
+
+[ext_resource type="PackedScene" uid="uid://bqsaw7jghbxn4" path="res://top-down-shooter-core/bullets/bullet.tscn" id="1_pldi6"]
+
+[sub_resource type="Gradient" id="Gradient_cnjlp"]
+colors = PackedColorArray(1, 1, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_1qppv"]
+gradient = SubResource("Gradient_cnjlp")
+width = 5
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hysma"]
+size = Vector2(4, 2)
+
+[node name="Bullet" instance=ExtResource("1_pldi6")]
+collision_mask = 11
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="0"]
+position = Vector2(-1, -1)
+texture = SubResource("GradientTexture1D_1qppv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+position = Vector2(-1, -1)
+shape = SubResource("RectangleShape2D_hysma")
